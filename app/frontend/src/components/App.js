@@ -3,10 +3,7 @@ import axios from 'axios';
 import { debounce } from 'lodash';
 
 import './../assets/App.scss';
-import logo from './../assets/captain.svg';
-import NavBar from './NavBar';
-import Container from './Container';
-import Footer from './Footer';
+import Dashboard from './Dashboard';
 import { API_HOST, COMICS_PER_PAGE, defaultParams, characterDefaultParams } from './../config';
 import { camelize } from './../utils';
 
@@ -15,12 +12,9 @@ const App = () => {
   const [comics, setComics] = useState(null);
   const [metadata, setMetadata] = useState(null);
   const [params, setParams] = useState(defaultParams);
-  const [favoriteComics, setFavoriteComics] = useState([88403]);
+  const [favoriteComics, setFavoriteComics] = useState([]);
 
-  const handleNextPage = () => setParams({ ...params, offset: params.offset + COMICS_PER_PAGE });
-  const handlePreviousPage = () =>
-    setParams({ ...params, offset: Math.max(params.offset - COMICS_PER_PAGE, 0) });
-
+  // --- fetch data ---
   const fetchComics = () => {
     setIsLoading(true);
     axios({
@@ -33,6 +27,7 @@ const App = () => {
       setIsLoading(false);
     });
   };
+
   const fetchFavoriteComics = () => {
     setIsLoading(true);
     axios({
@@ -42,31 +37,6 @@ const App = () => {
       setFavoriteComics(camelize(response.data));
       setIsLoading(false);
     });
-  };
-
-  useEffect(() => {
-    fetchComics();
-  }, [params]);
-
-  useEffect(() => {
-    fetchFavoriteComics();
-  }, []);
-
-  const renderLoading = () => {
-    return (
-      <div className='loading-container'>
-        <img className='loading-spinner' src={logo} alt='loading spinner' />
-      </div>
-    );
-  };
-
-  const debounceQuery = useCallback(
-    debounce((text) => fetchByCharacter(text), 1000),
-    [],
-  );
-
-  const handleChange = ({ target: { value } }) => {
-    debounceQuery(value);
   };
 
   const fetchByCharacter = (queryString) => {
@@ -82,13 +52,43 @@ const App = () => {
     });
   };
 
+  // --- hooks ---
+  useEffect(() => {
+    fetchComics();
+  }, [params]);
+
+  useEffect(() => {
+    fetchFavoriteComics();
+  }, []);
+
+  const debounceQuery = useCallback(
+    debounce((text) => fetchByCharacter(text), 1000),
+    [],
+  );
+
+  const handleChange = ({ target: { value } }) => {
+    debounceQuery(value);
+  };
+
+  // --- favorites ---
+  const filterFavorites = (favoriteComics) => (comicId) =>
+    favoriteComics.filter((fc) => Number(fc) === Number(comicId)).length;
+  const checkFavorite = filterFavorites(favoriteComics);
+
+  const toggleFavorite = (comic) => {
+    if (checkFavorite(comic.id)) {
+      removeFavorite(comic);
+    } else {
+      addFavorite(comic);
+    }
+  };
+
   const addFavorite = ({ id, title }) => {
     axios({
       method: 'post',
       url: API_HOST + '/favorite_comics/add_favorite',
       params: { comic_id: id, title },
     }).then((response) => {
-      console.log('new favorite added');
       fetchFavoriteComics();
     });
   };
@@ -99,41 +99,28 @@ const App = () => {
       url: API_HOST + '/favorite_comics/remove_favorite',
       params: { comic_id: id },
     }).then((response) => {
-      console.log('new favorite removed');
       fetchFavoriteComics();
     });
   };
 
-  const toggleFavorite = (comic) => {
-    if (
-      favoriteComics.filter((favoriteComic) => Number(favoriteComic.comicId) === Number(comic.id))
-        .length
-    ) {
-      removeFavorite(comic);
-    } else {
-      addFavorite(comic);
-    }
-  };
+  // --- pagination ---
+  const handleNextPage = () => setParams({ ...params, offset: params.offset + COMICS_PER_PAGE });
+
+  const handlePreviousPage = () =>
+    setParams({ ...params, offset: Math.max(params.offset - COMICS_PER_PAGE, 0) });
 
   return (
-    <div className='timely'>
-      <NavBar onChange={handleChange} />
-      {isLoading && renderLoading()}
-      {!isLoading && comics && (
-        <Container
-          comics={comics}
-          favoriteComics={favoriteComics}
-          toggleFavorite={toggleFavorite}
-        />
-      )}
-      {!isLoading && metadata && (
-        <Footer
-          handleNextPage={handleNextPage}
-          handlePreviousPage={handlePreviousPage}
-          metadata={metadata}
-        />
-      )}
-    </div>
+    <Dashboard
+      isLoading={isLoading}
+      handleChange={handleChange}
+      comics={comics}
+      metadata={metadata}
+      favoriteComics={favoriteComics}
+      toggleFavorite={toggleFavorite}
+      handlePreviousPage={handlePreviousPage}
+      handleNextPage={handleNextPage}
+      checkFavorite={checkFavorite}
+    />
   );
 };
 

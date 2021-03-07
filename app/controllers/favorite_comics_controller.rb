@@ -1,7 +1,7 @@
 class FavoriteComicsController < ActionController::API
 
   def index
-    render json: FavoriteComic.all, status: :ok
+    render json: FavoriteComic.all.pluck(:comic_id), status: :ok
   end
   
   def add_favorite
