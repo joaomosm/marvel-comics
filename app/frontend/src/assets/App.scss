@@ -1,0 +1,134 @@
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #333333;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  height: 100px;
+  background-color: rgba(240, 30, 15, 0.85);
+  text-align: center;
+}
+
+.container {
+  margin: 120px 60px 60px 60px
+}
+
+.footer {
+  margin: 60px;
+
+  button {
+    background-color: white;
+    min-height: 40px;
+    min-width: 120px;
+    border: 1px solid white;
+    border-radius: 2px;
+    color: red;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', sans-serif;
+    text-transform: uppercase;
+    font-weight: bold;
+
+    &:first-child {
+      color: red;
+    }
+    &:last-child {
+      float: right;
+    }
+
+  }
+}
+
+.grid-container {
+  display: grid;
+  // grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, 152px);
+  grid-gap: 20px;
+  align-items: stretch;
+}
+
+.grid-container img {
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  max-width: 100%;
+}
+
+.image-container {
+  position: relative;
+}
+
+.image {
+  display: block;
+  height: auto;
+}
+
+.image-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 207px;
+  width: 132px;
+  opacity: 0;
+  transition: 0.5s ease;
+  border: 10px solid red;
+  background-color: rgba(30, 30, 30, 0.65);
+}
+
+.image-container:hover .image-overlay {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.image-text {
+  color: black;
+  font-size: 12px;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  width: 100%;
+  height: 20%;
+  background-color: white;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-family: 'Trebuchet MS', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold
+}
+
+.image-svg {
+  color: black;
+  font-size: 16px;
+  position: absolute;
+  top: 10%;
+  left: 85%;
+  width: 30px;
+  height: 27px;
+  background: url('./heart_off.png');
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  
+  &:hover{
+    background: url('./heart_hover.png');
+  }
+  
+  &:active {
+    background: url('./heart_on.png');
+    width: 40px;
+    height: 37px;
+  }
+
+  img.heart {
+    border-radius: 0px;
+    border: 0px;
+  }
+}
