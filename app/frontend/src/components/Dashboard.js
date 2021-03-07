@@ -4,6 +4,7 @@ import NavBar from './NavBar';
 import ComicsGrid from './ComicsGrid';
 import Footer from './Footer';
 import Spinner from './Spinner';
+import AlertMessage from './AlertMessage';
 
 const Dashboard = ({
   isLoading,
@@ -15,6 +16,7 @@ const Dashboard = ({
   handlePreviousPage,
   handleNextPage,
   checkFavorite,
+  error,
 }) => (
   <>
     <NavBar onChange={handleChange} />
@@ -34,6 +36,7 @@ const Dashboard = ({
         metadata={metadata}
       />
     )}
+    <AlertMessage error={error} />
   </>
 );
 

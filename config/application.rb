@@ -22,5 +22,8 @@ module MarvelComics
         resource '*', headers: :any, methods: :any
       end
     end
+
+    config.middleware.use Rack::Throttle::Minute, max: 15
+    config.middleware.use Rack::Throttle::Hourly, max: 200
   end
 end
