@@ -1,9 +1,0 @@
-<h2>Index</h2>
-<ul>
-  <% @comics.each do |comic| %>
-    <li><%= comic.title %></li>
-    <%= image_tag comic.thumbnail['path'] + '/portrait_xlarge.jpg', alt: 'Alt Image Text' %>
-    <%= comic.dates %>
-    <br>
-  <% end %>
-</ul>

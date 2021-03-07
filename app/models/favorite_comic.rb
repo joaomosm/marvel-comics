@@ -1,0 +1,3 @@
+class FavoriteComic < ApplicationRecord
+
+end

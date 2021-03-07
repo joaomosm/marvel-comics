@@ -96,6 +96,36 @@ body {
   transition: 0.5s ease;
   border: 10px solid red;
   background-color: rgba(30, 30, 30, 0.65);
+
+  &.favorite {
+    opacity: 1;
+    background-color: unset;
+
+    .image-svg {
+      background: url('./heart_on.png');
+      width: 40px;
+      height: 37px;
+
+      &:hover{
+        background: url('./heart_hover.png');
+        width: 30px;
+        height: 27px;
+      }
+    }
+
+    .image-text {
+      display: none;
+    }
+
+    &:hover {
+      .image-text {
+        display: inline;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
 }
 
 .image-container:hover .image-overlay {

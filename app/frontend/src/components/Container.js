@@ -1,12 +1,14 @@
 import React from 'react';
 
-const Container = ({ comics }) => {
-  const toggleFavorite = (comic) => console.log('toggle favorite', comic.id);
+const Container = ({ comics, favoriteComics, toggleFavorite }) => {
+  const isFavorite = (comicId) =>
+    favoriteComics.filter((favoriteComic) => Number(favoriteComic.comicId) === Number(comicId))
+      .length;
 
   const renderComic = (comic) => (
     <div key={comic.id} className='image-container'>
       <img src={`${comic.thumbnail.path}/portrait_xlarge.jpg`} alt='Avatar' className='image' />
-      <div className='image-overlay'>
+      <div className={`${isFavorite(comic.id) ? 'image-overlay favorite' : 'image-overlay'}`}>
         <div className='image-svg' onClick={() => toggleFavorite(comic)} />
         <div className='image-text'>{comic.title}</div>
       </div>
