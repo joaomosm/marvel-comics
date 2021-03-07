@@ -7,3 +7,9 @@ export const defaultParams = {
   offset: 0,
   order: '-focDate'
 }
+
+export const characterDefaultParams = {
+  limit: COMICS_PER_PAGE,
+  offset: 0,
+  order: '-modified'
+}
