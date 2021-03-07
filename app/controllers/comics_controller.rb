@@ -4,7 +4,7 @@ class ComicsController < ActionController::API
     data = MarvelConnector.new.get_comics(options_params)
     render json: data, status: :ok
   end
-
+  
   def get_by_character
     data = MarvelConnector.new.get_comics_by_character(options_params)
     render json: data, status: :ok

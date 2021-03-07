@@ -39,12 +39,12 @@ const App = () => {
     });
   };
 
-  const fetchByCharacter = (queryString) => {
+  const fetchByCharacter = () => {
     setIsLoading(true);
     axios({
       method: 'get',
       url: API_HOST + '/comics/get_by_character',
-      params: { ...characterDefaultParams, name: queryString },
+      params,
     }).then((response) => {
       setComics(response.data.comics);
       setMetadata(response.data.metadata);
@@ -54,7 +54,7 @@ const App = () => {
 
   // --- hooks ---
   useEffect(() => {
-    fetchComics();
+    !!params.name ? fetchByCharacter() : fetchComics()
   }, [params]);
 
   useEffect(() => {
@@ -62,7 +62,13 @@ const App = () => {
   }, []);
 
   const debounceQuery = useCallback(
-    debounce((text) => fetchByCharacter(text), 1000),
+    debounce((text) => {
+      if(!!text) {
+        setParams({ ...characterDefaultParams, name: text })
+      } else {
+        setParams(defaultParams)
+      }
+    }, 1000),
     [],
   );
 
@@ -75,13 +81,8 @@ const App = () => {
     favoriteComics.filter((fc) => Number(fc) === Number(comicId)).length;
   const checkFavorite = filterFavorites(favoriteComics);
 
-  const toggleFavorite = (comic) => {
-    if (checkFavorite(comic.id)) {
-      removeFavorite(comic);
-    } else {
-      addFavorite(comic);
-    }
-  };
+  const toggleFavorite = (comic) =>
+    checkFavorite(comic.id) ? removeFavorite(comic) : addFavorite(comic);
 
   const addFavorite = ({ id, title }) => {
     axios({
