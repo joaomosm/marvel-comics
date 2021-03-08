@@ -1,7 +1,7 @@
-import React from 'react'
+import React from 'react';
 
-const CookieStatement = ({acceptCookie}) => (
-  <div className='cookie-statement'>
+const CookieStatement = ({ acceptCookie }) => (
+  <div className='cookie-statement' data-testid='cookie-statement'>
     <div className='cookie-statement-text'>
       Are you ready to take a <i>Great Power</i>? It comes with <i>Great Responsibility</i>!
       <button className='cookie-statement-button' onClick={acceptCookie}>
@@ -9,6 +9,6 @@ const CookieStatement = ({acceptCookie}) => (
       </button>
     </div>
   </div>
-)
+);
 
-export default CookieStatement
+export default CookieStatement;

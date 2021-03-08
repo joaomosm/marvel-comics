@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div>
+  <div
+    class="cookie-statement"
+    data-testid="cookie-statement"
+  >
+    <div
+      class="cookie-statement-text"
+    >
+      Are you ready to take a 
+      <i>
+        Great Power
+      </i>
+      ? It comes with 
+      <i>
+        Great Responsibility
+      </i>
+      !
+      <button
+        class="cookie-statement-button"
+      >
+        Accept
+      </button>
+    </div>
+  </div>
+</div>
+`;

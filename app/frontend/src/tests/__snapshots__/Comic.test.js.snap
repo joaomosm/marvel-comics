@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div>
+  <div
+    class="image-container"
+    data-testid="comic"
+  >
+    <img
+      alt="Avatar"
+      class="image"
+      data-testid="comic-thumbnail"
+      src="/portrait_xlarge.jpg"
+    />
+    <div
+      class="image-overlay"
+    >
+      <div
+        class="image-svg"
+      />
+      <div
+        class="image-text"
+        data-testid="comic-title"
+      >
+        le title
+      </div>
+    </div>
+  </div>
+</div>
+`;

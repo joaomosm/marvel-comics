@@ -18,7 +18,7 @@ const Dashboard = ({
   checkFavorite,
   error,
 }) => (
-  <>
+  <div data-testid='dashboard'>
     <NavBar onChange={handleChange} />
     <Spinner isLoading={isLoading} />
     {!isLoading && comics && (
@@ -37,7 +37,7 @@ const Dashboard = ({
       />
     )}
     <AlertMessage error={error} />
-  </>
+  </div>
 );
 
 export default Dashboard;
