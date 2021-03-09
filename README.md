@@ -21,6 +21,8 @@ This is a simple dashboard to search for Marvel Comics through the official Marv
  - install js dependencies: `yarn install`
  - start the server: `yarn start`
 
+After all these steps, everything should be up and running. The root URL is `localhost:3001`.
+
 ## Dependencies
 #### Rails
  - [pg](https://github.com/ged/ruby-pg) - Ruby interface to the PostgreSQL RDBMS
@@ -39,3 +41,10 @@ This is a simple dashboard to search for Marvel Comics through the official Marv
   - [node-sass](https://github.com/sass/node-sass) - Library that provides binding for Node.js to LibSass
   - [react-cookie](https://github.com/reactivestack/cookies/tree/master/packages/react-cookie) - Universal cookies for React
   - [prettier](https://github.com/prettier/prettier) - Opinionated code formatter which enforces a consistent coding style
+
+## Testing
+#### Rails
+To run Rspec tests, just type `rspec spec` on the root folder.
+
+#### React
+To run JS tests, just go to `app/frontend` folder and the type `yarn test a`.
